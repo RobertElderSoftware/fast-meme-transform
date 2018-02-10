@@ -158,7 +158,7 @@ void do_decoder_output(unsigned int samples_per_period_per_channel_pow_2, unsign
 	}
 	printfbuff(&fmt_string, "f[j+1]=p[1];");
 	printfbuff(&fmt_string, "}");
-	printfbuff(&fmt_string, "M=(NR==%u?%u:2*L);", num_required_periods, num_samples_last_period);
+	printfbuff(&fmt_string, "M=(NR==%u?%u:2*L);", num_required_periods, (num_samples_last_period == 0 ? samples_per_period_per_channel : num_samples_last_period));
 	printfbuff(&fmt_string, "for(n=0;n<M;n+=1){");
 		printfbuff(&fmt_string, "R=0;");
 		if(p->include_imaginary){
