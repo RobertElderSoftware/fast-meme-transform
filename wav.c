@@ -59,11 +59,13 @@ int load_wav_period(struct complex_number * time, char * wav_data, uint32_t samp
 	if(begin < total_samples_mono_channel){
 		/*  Now consider padding. */
 		for(i = begin; (i < end) && (i < total_samples_mono_channel); i++){
+			/*  Only considers data from one channel.  TODO:  Consider the other channel if present. */
 			unsigned int data_index = i * header->num_channels;
 			double v;
 			switch(header->bits_per_sample){
 				case 8:{
- 					v = (double)((int8_t*)wav_data)[data_index];
+ 					/*  It turns out that 8-bit .wav formats are usually unsigned centered at 0x80 while higher bits are signed. */
+ 					v = (double)((int32_t)(((uint8_t*)wav_data)[data_index]) - 0x80);
 					break;
 				}case 16:{
  					v = (double)((int16_t*)wav_data)[data_index];

@@ -419,7 +419,7 @@ int analyze_audio_and_build_command(struct run_params * p, struct wav_file_heade
 	if(p->verbose){
 		printf("#  num_required_periods: %u\n", num_required_periods);
 		printf("#  num_samples_last_period: %u\n", num_samples_last_period);
-		printf("#  Sample size in bytes: %u\n", *samples_size_loc);
+		printf("#  All samples size in bytes: %u\n", *samples_size_loc);
 		printf("#  Samples per period per channel : %u\n", samples_per_period_per_channel);
 		printf("#  Samples per period per channel power 2 adjusted: %u\n", samples_per_period_per_channel_pow_2);
 		printf("#  Total input samples mono channel: %u\n", total_samples_mono_channel);
