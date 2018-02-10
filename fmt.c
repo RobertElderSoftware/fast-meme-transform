@@ -180,11 +180,13 @@ void do_decoder_output(unsigned int samples_per_period_per_channel_pow_2, unsign
 			/*  Do a smoother transition when including the addition. */
 			printfbuff(&fmt_string, "R=(R*(n/L))+(o[n+1]*((L-n)/L));");
 			if(p->volume != 1){
+				/*  Multiply by max 16 bit signed int to scale. */
 				printfbuff(&fmt_string, "R*=%f;", p->volume);
 			}
-			printfbuff(&fmt_string, "R=(R>1?1:(R<-1?-1:R));");
-			/*  Multiply by max 16 bit signed int to scale  Also, trim off negative signed leading FFFFs if native awk data type has more bits. */
-			printfbuff(&fmt_string, "printf(\"%%04X\\n\",and(0xFFFF,R*0x7FFF));");
+			printfbuff(&fmt_string, "R=int(R*32767);");
+			/*  The integer comparisons are used to print negative signed 16 bit integers as though they were unsigned 16/32/64 bit integers. */
+			printfbuff(&fmt_string, "printf(\"%%04X\\n\",R==0?0:(R>0?(R>32767?32767:R):(R<-32768?32768:65536+R)));");
+
 		printfbuff(&fmt_string, "}else if(n<2*L){");
 			if(!p->enable_endpoint_discontinuities){
 				printfbuff(&fmt_string, "o[n-L+1]=R;");
