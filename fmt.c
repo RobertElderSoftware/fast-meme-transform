@@ -320,7 +320,7 @@ int parse_an_argument(int argc, char * argv[], struct run_params * p, unsigned i
 int populate_run_params(int argc, char * argv[], struct run_params * p){
 	unsigned int current_arg = 1;
 	/*  Default params. */
-	p->command_type = ALL_SOX;
+	p->command_type = UBUNTU_APLAY;
 	p->pitch = 1.0;
 	p->display_help_and_exit = 0;
 	p->float_precision = 0;
