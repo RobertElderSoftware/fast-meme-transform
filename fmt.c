@@ -476,7 +476,7 @@ int analyze_audio_and_build_command(struct run_params * p, struct wav_file_heade
 		if(num_matches == 0){
 			printfbuff(&uncompressed, "0=%s", (p->include_imaginary ? "0;0" : "0"));
 		}else{
-			unsigned int upper_bound = p->full_power_spectrum ? samples_per_period_per_channel_pow_2 : (samples_per_period_per_channel_pow_2 / 2);
+			unsigned int upper_bound = p->full_power_spectrum ? samples_per_period_per_channel_pow_2 : (samples_per_period_per_channel_pow_2 / 2) + 1;
 			for(i = 0; i < upper_bound; i++){
 				struct complex_number c = freq[i];
 				if(is_bigger_than_threshold(p->threshold, c.r, c.i, p->include_imaginary)){
