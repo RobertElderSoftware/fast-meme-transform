@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int do_compression_tests(void);
 
 int main(void){
 	srand(50);
@@ -56,5 +57,6 @@ int main(void){
 		free(original_input);
 	}
 	
+	do_compression_tests();
 	return 0;
 }

@@ -10,11 +10,11 @@ io.o: io.c
 compressor.o: compressor.c
 	@$(CUSTOM_COMPILER) -c $< -o $@ $(CUSTOM_FLAGS)
 
-test: compressor_tests
-	@./compressor_tests
+test: tests
+	@./tests
 
-compressor_tests: test.o custom_math.o fourier.o wav.o compressor.o io.o 
-	@$(CUSTOM_COMPILER) compressor.o io.o test.o custom_math.o fourier.o wav.o -o compressor_tests -lm $(CUSTOM_FLAGS)
+tests: test.o custom_math.o fourier.o wav.o compressor.o io.o 
+	@$(CUSTOM_COMPILER) compressor.o io.o test.o custom_math.o fourier.o wav.o -o tests -lm $(CUSTOM_FLAGS)
 
 fmt.o: fmt.c
 	@$(CUSTOM_COMPILER) -c $< -o $@ $(CUSTOM_FLAGS)
@@ -32,4 +32,4 @@ wav.o: wav.c
 	@$(CUSTOM_COMPILER) -c $< -o $@ $(CUSTOM_FLAGS)
 
 clean:
-	@rm -f fmt *.o compressor compressor_tests
+	@rm -f fmt *.o compressor tests
