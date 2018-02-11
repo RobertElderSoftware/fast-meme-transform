@@ -17,6 +17,8 @@ For example, you can use the following commands to take audio extracted from a Y
 ```
 #  Clone this repo
 git clone https://github.com/RobertElderSoftware/fast-meme-transform.git && cd fast-meme-transform
+#  These instructions were tested to work correctly with this commit hash (optional step):
+git checkout 05c48a3271697217f893a97d87eea29fb4ff6f90
 #  Build Fast Meme Transform tool
 make fmt
 #  Get audio in PCM .wav format
@@ -211,4 +213,4 @@ A positive number that can be used to either shift the frequency up or down.  Se
 
 #  LICENSE
 
-For everything other than the diffutils patch, see LICENSE.txt
+See LICENSE.txt
