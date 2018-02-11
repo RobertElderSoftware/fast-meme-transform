@@ -109,6 +109,7 @@ unsigned int fill_max_count_trie(struct trie_node * t, unsigned int max, char * 
 
 void make_character_list(struct character_node ** n, char * c, unsigned int chars_left){
 	struct character_node * prev = (struct character_node *)0;
+	*n = (struct character_node *)0;
 	while(chars_left > 0){
 		*n = malloc(sizeof(struct character_node));
 		(*n)->c = c[0];
