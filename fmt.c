@@ -337,6 +337,7 @@ int populate_run_params(int argc, char * argv[], struct run_params * p){
 	p->endtime = 0.0;
 	p->bfds = (struct biquad_filter_details *)0;
 	p->num_biquad_filters = 0;
+	p->enable_endpoint_discontinuities = 0;
 
 	while(current_arg < argc){
 		if(parse_an_argument(argc, argv, p, &current_arg)){
@@ -531,6 +532,7 @@ int main(int argc, char * argv[]){
 	struct wav_file_header * header = (struct wav_file_header *)0;
 	char * end;
 	char * data;
+	int rtn = 0;
 	if(populate_run_params(argc, argv, &p)){
 		return 1;
 	}
@@ -589,5 +591,7 @@ int main(int argc, char * argv[]){
 		printf("#  Unable to find data section.");
 		return 1;
 	}
-	return analyze_audio_and_build_command(&p, header, data);
+	rtn = analyze_audio_and_build_command(&p, header, data);
+	free(infile_bytes);
+	return rtn;
 }
