@@ -193,7 +193,7 @@ void do_decoder_output(unsigned int samples_per_period_per_channel_pow_2, unsign
 			}
 		printfbuff(&fmt_string, "}");
 	printfbuff(&fmt_string, "}");
-	printfbuff(&fmt_string, "}' | tac | tac | xxd -r -p | ");
+	printfbuff(&fmt_string, "}' | awk '{a[i++]=$0}END{while(j<i)print a[j++]}' | xxd -r -p | ");
 
 	if(p->command_type == ALL_SOX){
 		printfbuff(&fmt_string, "sox -q -r %u -b 16 -B -e signed -c 1 -t raw  - -t `sox -h|grep DRIVERS|sed 's/^.*: \\([^ ]\\+\\).*$/\\1/g'`", sample_rate);
