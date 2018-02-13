@@ -306,9 +306,9 @@ void print_compression_map(struct compression_map * m){
 
 void create_compressed_package(struct compression_map * m, struct character_node * chrs, struct print_buffer * b){
 	unsigned int i;
-	printfbuff(b, "echo -n \"");
+	printfbuff(b, "echo -n '");
 	print_character_list(chrs, b);
-	printfbuff(b, "\" | ");
+	printfbuff(b, "' | ");
 
 	printfbuff(b, "hexdump -v -e '/1 \"%%u\\n\"' | awk '");
 	printfbuff(b, "function d(f,k,a,b,o,w,i,q){");
