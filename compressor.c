@@ -269,10 +269,9 @@ void initialize_decompression_map(struct compression_map * m){
 	}
 
 	/*  n is a special case because we want to translate it directly into a newline in the meme transform tool. */
-	m->decompression_pointers['n'] = malloc(3 * sizeof(char));
-	m->decompression_pointers['n'][0] = '\\';
-	m->decompression_pointers['n'][1] = 'n';
-	m->decompression_pointers['n'][2] = '\0';
+	/*  NOTE: Actually, this had to be changed because awk on a Mac will split a newline into two empty strings. */
+	m->decompression_pointers['n'] = malloc(1 * sizeof(char));
+	m->decompression_pointers['n'][0] = '\0';
 
 	/*  Illegal characters that might cause problems in shells and should never show up in input. Map them to empty string. */
 	{
@@ -331,7 +330,7 @@ void create_compressed_package(struct compression_map * m, struct character_node
 				printfbuff(b, "q++;");
 		printfbuff(b, "i=f-32+1;");
 		printfbuff(b, "if(q>0)");
-			printfbuff(b, "printf(a[i]);");
+			printfbuff(b, "printf(f==110?\"\\n\":a[i]);");
 		printfbuff(b, "else{");
 			/*  Split up the characters and recursively run the expansion rules on each character. */
 			printfbuff(b, "h=split(a[i],b,\"\");");
