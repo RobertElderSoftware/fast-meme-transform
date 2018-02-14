@@ -311,7 +311,7 @@ void create_compressed_package(struct compression_map * m, struct character_node
 	printfbuff(b, "' | ");
 
 	printfbuff(b, "hexdump -v -e '/1 \"%%u\\n\"' | awk '");
-	printfbuff(b, "function d(f,k,a,b,o,w,i,q){");
+	printfbuff(b, "function d(f,k,a,b,o,w,i,q,h,j){");
 		printfbuff(b, "for(k=32;k<127;k++)");
 		printfbuff(b, "o[sprintf(\"%%c\", k)]=k;");
 		printfbuff(b, "split(\"");
@@ -334,9 +334,9 @@ void create_compressed_package(struct compression_map * m, struct character_node
 			printfbuff(b, "printf(a[i]);");
 		printfbuff(b, "else{");
 			/*  Split up the characters and recursively run the expansion rules on each character. */
-			printfbuff(b, "split(a[i],b,\"\");");
-			printfbuff(b, "for(j in b)");
-				printfbuff(b, "d(o[b[j]]);");
+			printfbuff(b, "h=split(a[i],b,\"\");");
+			printfbuff(b, "for(j=0;j<h;j++)");
+				printfbuff(b, "d(o[b[j+1]]);");
 		printfbuff(b, "}");
 	printfbuff(b, "}");
 	printfbuff(b, "d($1)");
